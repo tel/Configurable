@@ -5,7 +5,7 @@
              ScopedTypeVariables,
              TupleSections #-}
 
-module Configurable (
+module Control.Configurable (
   Configurable (..),
   Configuration,
   ConfiguredBy (..),
