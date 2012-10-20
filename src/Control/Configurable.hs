@@ -7,6 +7,7 @@
 
 module Control.Configurable (
   Configurable (..),
+  requireConfig,
   Configuration,
   ConfiguredBy (..),
   ConfigMethod,
@@ -36,6 +37,11 @@ class (Typeable a, Show a, Monoid a) => Configurable a where
   -- instance of the 'Configurable' to combine configurations.
   getConfig :: [Configuration] -> Maybe a
   getConfig cs = mconcat (map fromConfiguration cs)
+
+requireConfig :: [Configuration] -> a
+requireConfig c = fromMaybe
+                  (error "Required configuration missing!")
+                  (getConfig c)
 
 -- | A 'Configuration' is an opaque wrapper around an existentially
 -- typed 'Configurable'. 
